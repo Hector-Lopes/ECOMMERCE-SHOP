@@ -1,26 +1,17 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { FunctionComponent, useState } from 'react'
 
-function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
+interface AppProps {
+  message: string
 }
+
+const App = ({ message }: AppProps) => {
+  const [name, Setname] = useState<string>('')
+
+  return <h1>{message}</h1>
+}
+
+// const App: FunctionComponent<AppProps> = ({ message }) => {
+//   return <h1>{message}</h1>
+// }
 
 export default App
