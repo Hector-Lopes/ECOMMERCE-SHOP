@@ -21,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "husky:prepare": "husky init",
+    "husky:prepare": "husky init   ",
     "prepare": "husky"
   },
   "eslintConfig": {
