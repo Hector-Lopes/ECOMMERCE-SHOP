@@ -1,0 +1,31 @@
+{
+  "imports": [
+    { "globals": "globals" },
+    { "pluginJs": "@eslint/js" },
+    { "tseslint": "typescript-eslint" },
+    { "pluginReactConfig": "eslint-plugin-react/configs/recommended.js" },
+    { "fixupConfigRules": "@eslint/compat" }
+  ],
+  "config": [
+    { "files": ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
+    {
+      "languageOptions": {
+        "parserOptions": { "ecmaFeatures": { "jsx": true } }
+      }
+    },
+    {
+      "languageOptions": {
+        "globals": { "...globals.browser": true, "...globals.node": true }
+      }
+    },
+    "pluginJs.configs.recommended",
+    "...tseslint.configs.recommended",
+    "...fixupConfigRules(pluginReactConfig)"
+  ],
+  "rules": {
+    "semi": ["error", "always"],
+    "quotes": ["error", "double"],
+    "no-unused-vars": ["warn"],
+    "react/react-in-jsx-scope": "off"
+  }
+}
