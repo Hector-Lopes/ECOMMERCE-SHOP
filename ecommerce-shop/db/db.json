@@ -1,0 +1,34 @@
+{
+  "categories": [
+    {
+      "id": "6228f526b7e6cb904bbe0111",
+      "name": "hats",
+      "displayName": "Chapéus",
+      "imageUrl": "https://images.example.com/hats.jpg"
+    },
+    {
+      "id": "6228f687e7e6cb904bbe012e",
+      "name": "sneakers",
+      "displayName": "Tênis",
+      "imageUrl": "https://images.example.com/sneakers.jpg"
+    },
+    {
+      "id": "6228f58c7e6cb904bbe014b",
+      "name": "jackets",
+      "displayName": "Jaquetas",
+      "imageUrl": "https://images.example.com/jackets.jpg"
+    },
+    {
+      "id": "6228f48b7e6cb904bbe0162",
+      "name": "female",
+      "displayName": "Feminino",
+      "imageUrl": "https://images.example.com/female.jpg"
+    },
+    {
+      "id": "623664ee2237fe16b869471",
+      "name": "male",
+      "displayName": "Masculino",
+      "imageUrl": "https://images.example.com/male.jpg"
+    }
+  ]
+}

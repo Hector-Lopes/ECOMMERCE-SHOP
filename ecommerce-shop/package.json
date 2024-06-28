@@ -10,6 +10,8 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "axios": "^1.7.2",
+    "json-server": "^1.0.0-beta.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
@@ -23,6 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "start-complete": "concurrently \"set PORT=5000 && react-scripts start --watch \" \"json-server --watch db/db.json\" \" --env-file=config.env index.tsx\"",
     "husky:prepare": "husky init   ",
     "prepare": "husky"
   },
@@ -46,6 +49,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.1.0",
     "@eslint/js": "^9.5.0",
+    "concurrently": "^8.2.2",
     "eslint": "^9.5.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.34.3",
