@@ -1,4 +1,5 @@
 import Catergory from '../../types/category.types'
+import './category-item.styles.css'
 
 interface CategoryItemProps {
   category: Catergory
@@ -7,8 +8,8 @@ interface CategoryItemProps {
 const CategoryItem = ({ category }: CategoryItemProps) => {
   return (
     <div
-      className='category-item-container'
-      style={{ backgroundImage: category.imageUrl }}
+      className='category-item-container '
+      style={{ backgroundImage: `url('${category.imageUrl}')` }}
     >
       <div className='category-name'>
         <p>{category.displayName}</p>

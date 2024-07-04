@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+
+//components
+import CategoryItem from '../category-item/category-item'
+
 //utilities
 import Catergory from '../../types/category.types'
 // styles
@@ -25,8 +29,14 @@ const Categories = () => {
     fechCategories()
   }, [])
   return (
-    <div className='catergories-container'>
-      <div className='categories-content'></div>
+    <div className='categories-container'>
+      <div className='categories-content'>
+        {categories.map((category) => (
+          <div key={category.id}>
+            <CategoryItem category={category}></CategoryItem>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
