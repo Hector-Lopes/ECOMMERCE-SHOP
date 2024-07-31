@@ -7,7 +7,9 @@ import CategoryItem from '../category-item/category-item'
 //utilities
 import Catergory from '../../types/category.types'
 // styles
-import './categories.styles.css'
+
+import { CategoriesContainer, CategoriesContent } from './categories.styles'
+
 import env from '../../config/env.config'
 
 const Categories = () => {
@@ -29,15 +31,15 @@ const Categories = () => {
     fechCategories()
   }, [])
   return (
-    <div className='categories-container'>
-      <div className='categories-content'>
+    <CategoriesContainer>
+      <CategoriesContent>
         {categories.map((category) => (
           <div key={category.id}>
-            <CategoryItem category={category}></CategoryItem>
+            <CategoryItem category={category} />
           </div>
         ))}
-      </div>
-    </div>
+      </CategoriesContent>
+    </CategoriesContainer>
   )
 }
 
