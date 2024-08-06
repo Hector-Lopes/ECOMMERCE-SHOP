@@ -13,6 +13,7 @@ import {
   LoginInputContainer,
   LoginSubtitle
 } from './login.stykes'
+import CustomInput from '../../components/custom-input/custom-input.component'
 
 const LoginPage = () => {
   return (
@@ -25,8 +26,13 @@ const LoginPage = () => {
             Entrar com o google
           </CustomButton>
           <LoginSubtitle>ou entre com seu e-mail</LoginSubtitle>
-          <LoginInputContainer></LoginInputContainer>
-          <LoginInputContainer></LoginInputContainer>
+          <LoginInputContainer>
+          <CustomInput placeholder='Digite seu e-mail'></CustomInput>
+          </LoginInputContainer>
+          <LoginInputContainer>
+          <CustomInput placeholder='Digite sua senha'></CustomInput>
+          </LoginInputContainer>
+          
           <CustomButton startIcon={<FiLogIn size={25}></FiLogIn>}>Entrar</CustomButton>
         </LoginContent>
       </LoginContainer>
