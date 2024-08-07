@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 //Components
 import CustomButton from '../../components/custom-button/custom-button'
 import Header from '../../components/header/header.component'
-
+import InputErrorMessage from '../../components/input-error-message/input-error-message'
 //styles
 import {
   LoginContainer,
@@ -13,6 +13,7 @@ import {
   LoginSubtitle
 } from './login.stykes'
 import CustomInput from '../../components/custom-input/custom-input.component'
+import validator, { isEmail } from 'validator'
 
 const LoginPage = () => {
   const {
@@ -41,9 +42,24 @@ const LoginPage = () => {
             <CustomInput
               placeholder='Digite seu e-mail'
               hasError={!!errors?.email}
-              {...register('email', { required: true })}
+              {...register('email', {
+                required: true,
+                validate: (value) => {
+                  console.log(value, 'teste')
+                  return validator.isEmail(value)
+                }
+              })}
             ></CustomInput>
+            {errors?.email?.type === 'required' && (
+              <InputErrorMessage>O email e obrigatorio</InputErrorMessage>
+            )}
+            {errors?.email?.type === 'validate' && (
+              <InputErrorMessage>
+                Por favor, insira e-mail válido
+              </InputErrorMessage>
+            )}
           </LoginInputContainer>
+
           <LoginInputContainer>
             <p>Senha</p>
             <CustomInput
@@ -51,6 +67,9 @@ const LoginPage = () => {
               hasError={!!errors?.password}
               {...register('password', { required: true })}
             ></CustomInput>
+            {errors?.password?.type === 'required' && (
+              <InputErrorMessage>A senha é obrigatoria</InputErrorMessage>
+            )}
           </LoginInputContainer>
 
           <CustomButton
