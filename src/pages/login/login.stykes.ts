@@ -6,6 +6,13 @@ export const LoginContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  > .teste {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 450px;
+  }
 `
 
 export const LoginHeadline = styled.p`
@@ -15,12 +22,9 @@ export const LoginHeadline = styled.p`
   color: ${Colors.text.dark};
 `
 
-export const LoginContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 450px;
-`
+// export const LoginContent = styled.div`
+ 
+// `
 
 export const LoginSubtitle = styled.p`
   color: ${Colors.text.dark};
