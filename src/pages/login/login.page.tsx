@@ -15,12 +15,14 @@ import {
 import CustomInput from '../../components/custom-input/custom-input.component'
 import validator, { isEmail } from 'validator'
 
+import LoginForm from '../../types/Login.types'
+
 const LoginPage = () => {
   const {
     register,
     formState: { errors },
     handleSubmit
-  } = useForm()
+  } = useForm<LoginForm>()
 
   const handleSubmitPress = (data: any) => {
     console.log(data)
