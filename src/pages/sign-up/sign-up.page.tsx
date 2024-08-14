@@ -12,18 +12,48 @@ import CustomButton from '../../components/custom-button/custom-button'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
 
 import SignUpForm from '../../types/signupform.types'
+import {
+  AuthError,
+  createUserWithEmailAndPassword,
+  AuthErrorCodes
+} from 'firebase/auth'
+import { auth, db } from '../../config/firebase.config'
+import { addDoc, collection } from 'firebase/firestore'
 
 const SignUpPage = () => {
   const {
     formState: { errors },
     register,
     handleSubmit,
-    watch
+    watch,
+    setError
   } = useForm<SignUpForm>()
 
   const wacthPassword = watch('password')
-  const HandleSubmitSignUp = (data: SignUpForm) => {
-    console.log(data)
+  const HandleSubmitSignUp = async (data: SignUpForm) => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+
+      await addDoc(collection(db, 'users'), {
+        id: userCredentials.user.uid,
+        firstname: data.name,
+        lastname: data.surname,
+        email: data.email
+      })
+    } catch (error) {
+      console.log(error)
+      const _error = error as AuthError
+      if (_error.code == AuthErrorCodes.EMAIL_EXISTS) {
+        return setError('email', { type: 'alredyInUse' })
+      }
+      // if (_error.code == AuthErrorCodes.WEAK_PASSWORD) {
+      //   return setError('password', { type: 'weakPassword' })
+      // }
+    }
   }
   console.log(errors)
   return (
@@ -68,9 +98,13 @@ const SignUpPage = () => {
             {errors?.email?.type === 'validate' && (
               <InputErrorMessage>Coloque E-mail válido</InputErrorMessage>
             )}
+
+            {errors.email?.type === 'alredyInUse' && (
+              <InputErrorMessage>Este E-mail já esta em uso</InputErrorMessage>
+            )}
             <p>Senha</p>
             <CustomInput
-              {...register('password', { required: true })}
+              {...register('password', { required: true, minLength: 6 })}
               placeholder='Digite sua senha'
               hasError={!!errors.password}
               type='password'
@@ -78,11 +112,17 @@ const SignUpPage = () => {
             {errors?.password?.type === 'required' && (
               <InputErrorMessage>Senha é obrigatorio</InputErrorMessage>
             )}
+            {errors?.password?.type === 'minLength' && (
+              <InputErrorMessage>
+                A senha precisa ter 6 caracteres ou mais
+              </InputErrorMessage>
+            )}
             <p>Confirmção de senha</p>
 
             <CustomInput
               {...register('passwordconfirm', {
                 required: true,
+                minLength: 6,
                 validate: (value): any => {
                   return value == wacthPassword
                 }
@@ -99,6 +139,11 @@ const SignUpPage = () => {
             {errors?.passwordconfirm?.type === 'validate' && (
               <InputErrorMessage>
                 A confirmação de senha precisa se igual a senha
+              </InputErrorMessage>
+            )}
+            {errors?.passwordconfirm?.type === 'minLength' && (
+              <InputErrorMessage>
+                A confirmação de senha precisa ter 6 caracteres ou mais
               </InputErrorMessage>
             )}
           </SignUpInputContainer>
