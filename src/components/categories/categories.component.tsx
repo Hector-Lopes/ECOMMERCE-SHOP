@@ -19,9 +19,10 @@ import { categoryConverter } from '../../converters/firestore.converters'
 const Categories = () => {
   const [categories, setCategories] = useState<Catergory[]>([])
 
-  const categoriesFromFirestore: Catergory[] = []
   const fechCategories = async () => {
     try {
+      const categoriesFromFirestore: Catergory[] = []
+
       const querySnapshot = await getDocs(
         collection(db, 'categories').withConverter(categoryConverter)
       )
