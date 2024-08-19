@@ -16,18 +16,37 @@ import CustomInput from '../../components/custom-input/custom-input.component'
 import validator, { isEmail } from 'validator'
 
 import LoginForm from '../../types/Login.types'
+import {
+  signInWithEmailAndPassword,
+  AuthErrorCodes,
+  AuthError
+} from 'firebase/auth'
+import { auth } from '../../config/firebase.config'
 
 const LoginPage = () => {
   const {
     register,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    setError
   } = useForm<LoginForm>()
 
-  const handleSubmitPress = (data: any) => {
-    console.log(data)
+  const handleSubmitPress = async (data: LoginForm) => {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+      console.log(userCredentials)
+    } catch (error) {
+      console.log(error)
+      const _error = error as AuthError
+      if (_error.code == AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
+        return setError('password', { type: 'mismacth' })
+      }
+    }
   }
-  console.log(errors, 'erro')
 
   return (
     <>
@@ -47,7 +66,6 @@ const LoginPage = () => {
               {...register('email', {
                 required: true,
                 validate: (value) => {
-                  console.log(value, 'teste')
                   return validator.isEmail(value)
                 }
               })}
@@ -71,6 +89,9 @@ const LoginPage = () => {
             ></CustomInput>
             {errors?.password?.type === 'required' && (
               <InputErrorMessage>A senha é obrigatoria</InputErrorMessage>
+            )}
+            {errors?.password?.type === 'mismacth' && (
+              <InputErrorMessage>A senha ou email é inválida</InputErrorMessage>
             )}
           </LoginInputContainer>
 
