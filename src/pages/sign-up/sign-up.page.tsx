@@ -39,10 +39,11 @@ const SignUpPage = () => {
       )
 
       await addDoc(collection(db, 'users'), {
-        id: userCredentials.user.uid,
+        id: data.uid,
         firstname: data.name,
         lastname: data.surname,
-        email: data.email
+        email: data.email,
+        provider: userCredentials.user.providerId
       })
     } catch (error) {
       console.log(error)
