@@ -9,8 +9,11 @@ import {
 } from './header.styles'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../config/firebase.config'
+import { useContext } from 'react'
+import { UserContext } from '../../contexts/user.context'
 
 const Header = () => {
+  const { isAuthenticated } = useContext(UserContext)
   const navigate = useNavigate()
   const handdleLoginClick = () => {
     navigate('/login')
@@ -28,8 +31,13 @@ const Header = () => {
 
       <HeaderItems>
         <HeaderItem>Explorar</HeaderItem>
-        <HeaderItem onClick={handdleLoginClick}>Login</HeaderItem>
-        <HeaderItem onClick={handdleSignupClick}>Criar Conta</HeaderItem>
+        {isAuthenticated !== true && (
+          <>
+            <HeaderItem onClick={handdleLoginClick}>Login</HeaderItem>
+            <HeaderItem onClick={handdleSignupClick}>Criar Conta</HeaderItem>
+          </>
+        )}
+
         <HeaderItem
           onClick={() => {
             signOut(auth)
