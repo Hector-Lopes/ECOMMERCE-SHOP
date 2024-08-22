@@ -37,18 +37,21 @@ const Header = () => {
             <HeaderItem onClick={handdleSignupClick}>Criar Conta</HeaderItem>
           </>
         )}
-
-        <HeaderItem
-          onClick={() => {
-            signOut(auth)
-          }}
-        >
-          Sair
-        </HeaderItem>
-        <HeaderItem>
-          <BsCart3 size={25} />
-          <p style={{ marginLeft: 5 }}>5</p>
-        </HeaderItem>
+        {isAuthenticated == true && (
+          <>
+            <HeaderItem
+              onClick={() => {
+                signOut(auth)
+              }}
+            >
+              Sair
+            </HeaderItem>
+            <HeaderItem>
+              <BsCart3 size={25} />
+              <p style={{ marginLeft: 5 }}>5</p>
+            </HeaderItem>
+          </>
+        )}
       </HeaderItems>
     </HeaderContainer>
   )
