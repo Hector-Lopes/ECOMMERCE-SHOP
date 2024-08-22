@@ -9,6 +9,7 @@ import { auth, db } from './config/firebase.config'
 import { UserContext } from './contexts/user.context'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import User from '../src/types/user'
+import Loading from './components/loading/loading.component'
 const App = () => {
   const { loginUser, isAuthenticated, logoutUser } = useContext(UserContext)
   const [isInitializing, setIsnitializing] = useState(true)
@@ -32,7 +33,7 @@ const App = () => {
   })
 
   if (isInitializing) {
-    return null
+    return <Loading></Loading>
   }
   return (
     <>
