@@ -25,9 +25,10 @@ import {
 } from 'firebase/auth'
 import { auth, googleProvider, db } from '../../config/firebase.config'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useState } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/loading/loading.component'
 const LoginPage = () => {
   const {
     register,
@@ -35,17 +36,13 @@ const LoginPage = () => {
     handleSubmit,
     setError
   } = useForm<LoginForm>()
-
+  const [isloading, setLoading] = useState(false)
   const { isAuthenticated } = useContext(UserContext)
   const navigate = useNavigate()
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/')
-    }
-  }, [isAuthenticated])
 
   const handleSubmitPress = async (data: LoginForm) => {
     try {
+      setLoading(true)
       const userCredentials = await signInWithEmailAndPassword(
         auth,
         data.email,
@@ -58,11 +55,14 @@ const LoginPage = () => {
       if (_error.code == AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
         return setError('password', { type: 'mismacth' })
       }
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleSignInWithGooglePress = async () => {
     try {
+      setLoading(true)
       const userCredentials = await signInWithPopup(auth, googleProvider)
 
       const querySnapshot = await getDocs(
@@ -86,11 +86,19 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated])
   return (
     <>
+      {isloading && <Loading></Loading>}
       <Header></Header>
       <LoginContainer>
         <div className='teste'>

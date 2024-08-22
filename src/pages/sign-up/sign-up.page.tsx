@@ -19,9 +19,10 @@ import {
 } from 'firebase/auth'
 import { auth, db } from '../../config/firebase.config'
 import { addDoc, collection } from 'firebase/firestore'
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useState } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/loading/loading.component'
 const SignUpPage = () => {
   const {
     formState: { errors },
@@ -31,6 +32,7 @@ const SignUpPage = () => {
     setError
   } = useForm<SignUpForm>()
   const { isAuthenticated } = useContext(UserContext)
+  const [isloading, setLoading] = useState(false)
   const navigate = useNavigate()
   useEffect(() => {
     if (isAuthenticated) {
@@ -41,6 +43,7 @@ const SignUpPage = () => {
   const wacthPassword = watch('password')
   const HandleSubmitSignUp = async (data: SignUpForm) => {
     try {
+      setLoading(true)
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         data.email,
@@ -63,11 +66,14 @@ const SignUpPage = () => {
       // if (_error.code == AuthErrorCodes.WEAK_PASSWORD) {
       //   return setError('password', { type: 'weakPassword' })
       // }
+    } finally {
+      setLoading(false)
     }
   }
   console.log(errors)
   return (
     <>
+      {isloading && <Loading></Loading>}
       <Header></Header>
       <SignUpContainer>
         <SignUpContent>
