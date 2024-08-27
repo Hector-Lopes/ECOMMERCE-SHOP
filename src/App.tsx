@@ -10,6 +10,7 @@ import { UserContext } from './contexts/user.context'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import User from '../src/types/user'
 import Loading from './components/loading/loading.component'
+import ExplorePage from './pages/explore/explore.page'
 const App = () => {
   const { loginUser, isAuthenticated, logoutUser } = useContext(UserContext)
   const [isInitializing, setIsnitializing] = useState(true)
@@ -41,7 +42,9 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home></Home>}></Route>
           <Route path='/login' element={<LoginPage></LoginPage>}></Route>
+
           <Route path='/sign-up' element={<SignUpPage></SignUpPage>}></Route>
+          <Route path='/explore' element={<ExplorePage></ExplorePage>}></Route>
         </Routes>
       </BrowserRouter>
     </>
