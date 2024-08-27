@@ -27,6 +27,7 @@ const App = () => {
       const querySnapshot = await getDocs(
         query(collection(db, 'users'), where('id', '==', user.uid))
       )
+
       const userFromFirestore = querySnapshot.docs[0]?.data()
       loginUser(userFromFirestore as User)
       return setIsnitializing(false)
