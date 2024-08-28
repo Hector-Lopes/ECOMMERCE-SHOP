@@ -12,6 +12,7 @@ import User from '../src/types/user'
 import Loading from './components/loading/loading.component'
 import ExplorePage from './pages/explore/explore.page'
 import CategoryDetailsPage from './pages/category-details/category-details.page'
+import Cart from './components/cart/cart-component'
 const App = () => {
   const { loginUser, isAuthenticated, logoutUser } = useContext(UserContext)
   const [isInitializing, setIsnitializing] = useState(true)
@@ -51,6 +52,7 @@ const App = () => {
             element={<CategoryDetailsPage></CategoryDetailsPage>}
           ></Route>
         </Routes>
+        <Cart></Cart>
       </BrowserRouter>
     </>
   )
