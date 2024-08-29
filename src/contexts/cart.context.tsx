@@ -10,12 +10,14 @@ interface ICartContext {
   isVisible: boolean
   products: CartProduct[]
   toggleCart: () => void
+  addProductToCart: (product: Product) => void
 }
 
 export const CartContext = createContext<ICartContext>({
   isVisible: false,
   products: [],
-  toggleCart: () => {}
+  toggleCart: () => {},
+  addProductToCart: () => {}
 })
 
 const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
@@ -24,9 +26,24 @@ const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
   const toggleCart = () => {
     setIsVisible((prevState) => !prevState)
   }
+  const addProductToCart = (product: Product) => {
+    const ProductsAlredyExists = products.some((item) => item.id == product.id)
 
+    if (ProductsAlredyExists) {
+      return setProducts((prevState) =>
+        prevState.map((item) =>
+          item.id == product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      )
+    }
+    setProducts((prevstate) => [...prevstate, { ...product, quantity: 1 }])
+  }
   return (
-    <CartContext.Provider value={{ isVisible, products, toggleCart }}>
+    <CartContext.Provider
+      value={{ isVisible, products, toggleCart, addProductToCart }}
+    >
       {children}
     </CartContext.Provider>
   )
