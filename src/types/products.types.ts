@@ -1,6 +1,6 @@
 interface Product {
   id: string
-  imagaurl: string
+  imageUrl: string
   name: string
   price: number
 }
