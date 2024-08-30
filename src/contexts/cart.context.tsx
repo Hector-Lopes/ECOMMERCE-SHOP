@@ -12,6 +12,8 @@ interface ICartContext {
   toggleCart: () => void
   addProductToCart: (product: Product) => void
   DeleteProductToCart: (productId: string) => void
+  IncreaseProductQuantity: (product: Product) => void
+  DecreaseProductQuantity: (product: Product) => void
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -19,7 +21,9 @@ export const CartContext = createContext<ICartContext>({
   products: [],
   toggleCart: () => {},
   addProductToCart: () => {},
-  DeleteProductToCart: () => {}
+  DeleteProductToCart: () => {},
+  IncreaseProductQuantity: () => {},
+  DecreaseProductQuantity: () => {}
 })
 
 const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
@@ -43,7 +47,49 @@ const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
     setProducts((prevstate) => [...prevstate, { ...product, quantity: 1 }])
   }
   const DeleteProductToCart = (productId: string) => {
-    products.filter((item) => item.id !== productId)
+    setProducts(products.filter((item) => item.id !== productId))
+  }
+
+  const IncreaseProductQuantity = (product: Product) => {
+    // setProducts((products) =>
+    //   products.map((product) =>
+    //     product.id === productId
+    //       ? { ...product, quantity: product.quantity + 1 }
+    //       : product
+    //   )
+    // )
+    const ProductsAlredyExists = products.some((item) => item.id == product.id)
+    if (ProductsAlredyExists) {
+      return setProducts((prevState) =>
+        prevState.map((item) =>
+          item.id == product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      )
+    }
+  }
+
+  const DecreaseProductQuantity = (product: Product) => {
+    // setProducts((products) =>
+    //   products
+    //     .map((product) =>
+    //       product.id === productId
+    //         ? { ...product, quantity: product.quantity - 1 }
+    //         : product
+    //     )
+    //     .filter((product) => product.quantity > 0)
+    // )
+    const ProductsAlredyExists = products.some((item) => item.id == product.id)
+    if (ProductsAlredyExists) {
+      setProducts((prevState) =>
+        prevState.map((item) =>
+          item.id == product.id && item.quantity > 1
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+      )
+    }
   }
 
   return (
@@ -53,7 +99,9 @@ const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
         products,
         toggleCart,
         addProductToCart,
-        DeleteProductToCart
+        DeleteProductToCart,
+        IncreaseProductQuantity,
+        DecreaseProductQuantity
       }}
     >
       {children}
