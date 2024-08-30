@@ -1,4 +1,10 @@
-import { createContext, useState } from 'react'
+import {
+  createContext,
+  useEffect,
+  useMemo,
+  useState,
+  useLayoutEffect
+} from 'react'
 import CartProduct from '../types/cart.types'
 import Product from '../types/products.types'
 
@@ -9,6 +15,8 @@ interface ICartContextChildren {
 interface ICartContext {
   isVisible: boolean
   products: CartProduct[]
+  productsTotalPrice: number
+  productsTotal: number
   toggleCart: () => void
   addProductToCart: (product: Product) => void
   DeleteProductToCart: (productId: string) => void
@@ -19,6 +27,8 @@ interface ICartContext {
 export const CartContext = createContext<ICartContext>({
   isVisible: false,
   products: [],
+  productsTotalPrice: 0,
+  productsTotal: 0,
   toggleCart: () => {},
   addProductToCart: () => {},
   DeleteProductToCart: () => {},
@@ -28,7 +38,34 @@ export const CartContext = createContext<ICartContext>({
 
 const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false)
-  const [products, setProducts] = useState<CartProduct[]>([])
+  const [products, setProducts] = useState<CartProduct[]>(() => {
+    const productsFromLocalStorage = JSON.parse(
+      localStorage.getItem('cartProducts')!
+    )
+    console.log('Loaded from localStorage:', productsFromLocalStorage)
+    if (productsFromLocalStorage) {
+      return productsFromLocalStorage
+    } else {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('cartProducts', JSON.stringify(products))
+  }, [products])
+
+  const productsTotalPrice = useMemo(() => {
+    return products.reduce((accomulator, product) => {
+      return accomulator + product.price * product.quantity
+    }, 0)
+  }, [products])
+
+  const productsTotal = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + product.quantity
+    }, 0)
+  }, [products])
+
   const toggleCart = () => {
     setIsVisible((prevState) => !prevState)
   }
@@ -92,6 +129,16 @@ const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
     }
   }
 
+  // useEffect(() => {
+  //   const productsFromLocalStorage = JSON.parse(
+  //     localStorage.getItem('cartProducts')!
+  //   )
+  //   console.log('Loaded from localStorage:', productsFromLocalStorage)
+  //   if (productsFromLocalStorage) {
+  //     setProducts(productsFromLocalStorage)
+  //   }
+  // }, [])
+
   return (
     <CartContext.Provider
       value={{
@@ -101,7 +148,9 @@ const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
         addProductToCart,
         DeleteProductToCart,
         IncreaseProductQuantity,
-        DecreaseProductQuantity
+        DecreaseProductQuantity,
+        productsTotalPrice,
+        productsTotal
       }}
     >
       {children}
