@@ -16,11 +16,13 @@ export const CategoryTitle = styled.div`
 `
 
 export const ProductsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  //  grid-template-columns: repeat(4, 1fr);
   justify-items: start;
   margin-top: 5px;
   grid-row-gap: 20px;
+  grid-column-gap: 50px;
+  flex-wrap: wrap;
 `
 
 export const IconContainer = styled.div`
