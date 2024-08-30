@@ -38,7 +38,21 @@ export const CartContext = createContext<ICartContext>({
 
 const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false)
-  const [products, setProducts] = useState<CartProduct[]>([])
+  const [products, setProducts] = useState<CartProduct[]>(() => {
+    const productsFromLocalStorage = JSON.parse(
+      localStorage.getItem('cartProducts')!
+    )
+    console.log('Loaded from localStorage:', productsFromLocalStorage)
+    if (productsFromLocalStorage) {
+      return productsFromLocalStorage
+    } else {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('cartProducts', JSON.stringify(products))
+  }, [products])
 
   const productsTotalPrice = useMemo(() => {
     return products.reduce((accomulator, product) => {
@@ -115,22 +129,15 @@ const CartContextProvider: React.FC<ICartContextChildren> = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    const productsFromLocalStorage = JSON.parse(
-      localStorage.getItem('cartProducts')!
-    )
-    console.log('Loaded from localStorage:', productsFromLocalStorage)
-    if (productsFromLocalStorage) {
-      setProducts(productsFromLocalStorage)
-    }
-  }, [])
-
-  useEffect(() => {
-    console.log('Saving to localStorage:', products)
-    if (products.length > 0) {
-      localStorage.setItem('cartProducts', JSON.stringify(products))
-    }
-  }, [products])
+  // useEffect(() => {
+  //   const productsFromLocalStorage = JSON.parse(
+  //     localStorage.getItem('cartProducts')!
+  //   )
+  //   console.log('Loaded from localStorage:', productsFromLocalStorage)
+  //   if (productsFromLocalStorage) {
+  //     setProducts(productsFromLocalStorage)
+  //   }
+  // }, [])
 
   return (
     <CartContext.Provider
