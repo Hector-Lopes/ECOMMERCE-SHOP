@@ -53,12 +53,12 @@ const Header = () => {
             >
               Sair
             </HeaderItem>
-            <HeaderItem onClick={toggleCart}>
-              <BsCart3 size={25} />
-              <p style={{ marginLeft: 5 }}>{productsTotal}</p>
-            </HeaderItem>
           </>
         )}
+        <HeaderItem onClick={toggleCart}>
+          <BsCart3 size={25} />
+          <p style={{ marginLeft: 5 }}>{productsTotal}</p>
+        </HeaderItem>
       </HeaderItems>
     </HeaderContainer>
   )
