@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import colors from '../../theme/theme.colors'
 
 export const LoadingContainer = styled.div`
   position: fixed;
@@ -10,4 +11,13 @@ export const LoadingContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  p {
+    color: ${colors.text.white};
+    font-weight: 550;
+    margin-bottom: 25px;
+    font-size: 1.325rem;
+    max-width: 50%;
+    text-align: center;
+  }
 `
