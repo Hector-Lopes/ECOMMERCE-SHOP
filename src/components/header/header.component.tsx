@@ -13,6 +13,7 @@ import { useContext } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { CartContext } from '../../contexts/cart.context'
 import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser } from '../../store/reducers/user/user.action'
 
 const Header = () => {
   const dispach = useDispatch()
@@ -38,7 +39,7 @@ const Header = () => {
   }
 
   const handleSignOutClick = () => {
-    dispach({ type: 'LOGOUT_USER' })
+    dispach(logoutUser())
     signOut(auth)
   }
   return (
