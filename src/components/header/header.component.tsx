@@ -12,9 +12,14 @@ import { auth } from '../../config/firebase.config'
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { CartContext } from '../../contexts/cart.context'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Header = () => {
-  const { isAuthenticated } = useContext(UserContext)
+  const dispach = useDispatch()
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
+
   const navigate = useNavigate()
   const { toggleCart, productsTotal } = useContext(CartContext)
 
@@ -32,6 +37,10 @@ const Header = () => {
     navigate('/explore')
   }
 
+  const handleSignOutClick = () => {
+    dispach({ type: 'LOGOUT_USER' })
+    signOut(auth)
+  }
   return (
     <HeaderContainer>
       <HeaderTitle onClick={handleHomeClick}>CLUB CLOTHING</HeaderTitle>
@@ -46,13 +55,7 @@ const Header = () => {
         )}
         {isAuthenticated == true && (
           <>
-            <HeaderItem
-              onClick={() => {
-                signOut(auth)
-              }}
-            >
-              Sair
-            </HeaderItem>
+            <HeaderItem onClick={handleSignOutClick}>Sair</HeaderItem>
           </>
         )}
         <HeaderItem onClick={toggleCart}>
