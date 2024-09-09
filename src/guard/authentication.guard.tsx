@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../contexts/user.context'
 import Header from '../components/header/header.component'
 import Loading from '../components/loading/loading.component'
+import { useSelector } from 'react-redux'
 
 interface AuthenticantionProps {
   children: React.ReactNode
@@ -12,7 +13,10 @@ interface AuthenticantionProps {
 const AuthenticationGuard: FunctionComponent<AuthenticantionProps> = ({
   children
 }) => {
-  const { isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
+
   const navigate = useNavigate()
   const [isLoading, setLoading] = useState(false)
 

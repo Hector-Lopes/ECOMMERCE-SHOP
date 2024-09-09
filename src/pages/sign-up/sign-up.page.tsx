@@ -23,7 +23,12 @@ import { useEffect, useContext, useState } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading.component'
+import { useDispatch, useSelector } from 'react-redux'
 const SignUpPage = () => {
+  const dispach = useDispatch()
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
   const {
     formState: { errors },
     register,
@@ -31,7 +36,7 @@ const SignUpPage = () => {
     watch,
     setError
   } = useForm<SignUpForm>()
-  const { isAuthenticated } = useContext(UserContext)
+
   const [isloading, setLoading] = useState(false)
   const navigate = useNavigate()
   useEffect(() => {

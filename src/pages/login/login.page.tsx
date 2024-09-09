@@ -29,7 +29,12 @@ import { useEffect, useContext, useState } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading.component'
+import { useDispatch, useSelector } from 'react-redux'
 const LoginPage = () => {
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
+
   const {
     register,
     formState: { errors },
@@ -37,7 +42,7 @@ const LoginPage = () => {
     setError
   } = useForm<LoginForm>()
   const [isloading, setLoading] = useState(false)
-  const { isAuthenticated } = useContext(UserContext)
+
   const navigate = useNavigate()
 
   const handleSubmitPress = async (data: LoginForm) => {
