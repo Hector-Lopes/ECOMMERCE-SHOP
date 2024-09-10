@@ -1,6 +1,6 @@
-const UserAcitonTypes = {
-  LOGIN: 'user/login',
-  LOGOUT: 'user/logout'
+const UserActionTypes = {
+  LOGIN: 'user/login' as const,
+  LOGOUT: 'user/logout' as const
 }
 
-export default UserAcitonTypes
+export default UserActionTypes

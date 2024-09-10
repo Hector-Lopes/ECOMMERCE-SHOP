@@ -10,15 +10,15 @@ import {
 import { signOut } from 'firebase/auth'
 import { auth } from '../../config/firebase.config'
 import { useContext } from 'react'
-import { UserContext } from '../../contexts/user.context'
 import { CartContext } from '../../contexts/cart.context'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { logoutUser } from '../../store/reducers/user/user.action'
+import { useAppSelector } from '../../hooks/redux.hooks'
 
 const Header = () => {
-  const dispach = useDispatch()
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const dispatch = useDispatch()
+  const { isAuthenticated } = useAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
 
   const navigate = useNavigate()
@@ -39,7 +39,7 @@ const Header = () => {
   }
 
   const handleSignOutClick = () => {
-    dispach(logoutUser())
+    dispatch(logoutUser())
     signOut(auth)
   }
   return (
