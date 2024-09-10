@@ -8,16 +8,20 @@ import {
 } from './product-item.styles'
 import { useContext } from 'react'
 import { CartContext } from '../../contexts/cart.context'
+import { useAppSelector } from '../../hooks/redux.hooks'
+import cartReducer from '../../store/reducers/cart/cart.reducer'
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../../store/reducers/cart/cart.action'
+import CartProduct from '../../types/cart.types'
 
 interface ProductItemProps {
   product: Product
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
-  const { addProductToCart } = useContext(CartContext)
-
+  const dispacth = useDispatch()
   const HandleAddToCart = () => {
-    addProductToCart(product)
+    dispacth(addProduct(product as CartProduct))
   }
   return (
     <ProductContainer>

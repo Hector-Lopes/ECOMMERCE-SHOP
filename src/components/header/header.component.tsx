@@ -14,6 +14,7 @@ import { CartContext } from '../../contexts/cart.context'
 import { useDispatch } from 'react-redux'
 import { logoutUser } from '../../store/reducers/user/user.action'
 import { useAppSelector } from '../../hooks/redux.hooks'
+import { toggleCart } from '../../store/reducers/cart/cart.action'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ const Header = () => {
   )
 
   const navigate = useNavigate()
-  const { toggleCart, productsTotal } = useContext(CartContext)
+  const { productsTotal } = useContext(CartContext)
 
   const handdleLoginClick = () => {
     navigate('/login')
@@ -42,6 +43,11 @@ const Header = () => {
     dispatch(logoutUser())
     signOut(auth)
   }
+
+  const handleCartClick = () => {
+    dispatch(toggleCart())
+  }
+
   return (
     <HeaderContainer>
       <HeaderTitle onClick={handleHomeClick}>CLUB CLOTHING</HeaderTitle>
@@ -59,7 +65,7 @@ const Header = () => {
             <HeaderItem onClick={handleSignOutClick}>Sair</HeaderItem>
           </>
         )}
-        <HeaderItem onClick={toggleCart}>
+        <HeaderItem onClick={handleCartClick}>
           <BsCart3 size={25} />
           <p style={{ marginLeft: 5 }}>{productsTotal}</p>
         </HeaderItem>
