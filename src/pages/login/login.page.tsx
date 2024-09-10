@@ -29,9 +29,9 @@ import { useEffect, useContext, useState } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading.component'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks/redux.hooks'
 const LoginPage = () => {
-  const { isAuthenticated } = useSelector(
+  const { isAuthenticated } = useAppSelector(
     (rootReducer: any) => rootReducer.userReducer
   )
 
