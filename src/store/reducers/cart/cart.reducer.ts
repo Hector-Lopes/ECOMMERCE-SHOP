@@ -6,15 +6,11 @@ import CartActionTypes from './cart.action-types'
 interface InitialState {
   isVisible: boolean
   products: CartProduct[]
-  productsTotalPrice: number
-  productsTotal: number
 }
 
 const InitialState: InitialState = {
   isVisible: false,
-  products: [],
-  productsTotalPrice: 0,
-  productsTotal: 0
+  products: []
 }
 
 const cartReducer = (state = InitialState, action: any): InitialState => {
@@ -24,9 +20,9 @@ const cartReducer = (state = InitialState, action: any): InitialState => {
     case CartActionTypes.addProducToCart: {
       const actulProduct = action.payload
       const ProductsAlredyExists = state.products.some(
-        (item) => item.id == actulProduct
+        (item) => item.id == actulProduct.id
       )
-
+      console.log(ProductsAlredyExists, 'here')
       if (ProductsAlredyExists) {
         return {
           ...state,
