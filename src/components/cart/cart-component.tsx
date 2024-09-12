@@ -14,7 +14,10 @@ import CartItem from '../cart-item.styles.ts/cart-item.component'
 import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
-import { toggleCart } from '../../store/reducers/cart/cart.action'
+import {
+  ClearProducts,
+  toggleCart
+} from '../../store/reducers/cart/cart.action'
 import { useAppSelector } from '../../hooks/redux.hooks'
 import {
   selectProductsCount,
@@ -37,6 +40,10 @@ const Cart: FunctionComponent = () => {
   }
   const HandleCLickOut = () => {
     dispatch(toggleCart())
+  }
+
+  const HandleClearCar = () => {
+    dispatch(ClearProducts())
   }
 
   return (

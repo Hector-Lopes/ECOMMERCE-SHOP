@@ -38,6 +38,37 @@ const cartReducer = (state = InitialState, action: any): InitialState => {
         products: [...state.products, { ...actulProduct, quantity: 1 }]
       }
     }
+    case CartActionTypes.removeProducToCart: {
+      let actulProduct = action.payload
+
+      return {
+        ...state,
+        products: state.products.filter((item) => item.id !== actulProduct.id) // ele retorna todos os produtos que tenham ID Diferente do enviado
+      }
+    }
+    case CartActionTypes.increaseProductQuantity: {
+      return {
+        ...state,
+        products: state.products.map((item) =>
+          item.id == action.payload.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      }
+    }
+    case CartActionTypes.decreaseProductQuantity: {
+      return {
+        ...state,
+        products: state.products.map((item) =>
+          item.id == action.payload.id && action.payload.quantity > 1
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+      }
+    }
+    case CartActionTypes.clearProducts: {
+      return { ...state, products: [] }
+    }
     default:
       return { ...state }
   }
