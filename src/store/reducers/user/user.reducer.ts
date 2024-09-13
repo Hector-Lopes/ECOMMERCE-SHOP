@@ -19,7 +19,7 @@ const userReducer = (state = InitialState, action: any): InitialState => {
     case UserAcitonTypes.LOGOUT:
       return { ...state, currentUser: null, isAuthenticated: false }
     default:
-      return { ...state }
+      return state
   }
 }
 
