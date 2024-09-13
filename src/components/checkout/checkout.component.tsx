@@ -12,8 +12,13 @@ import CartItem from '../cart-item.styles.ts/cart-item.component'
 import axios from 'axios'
 import API_URL from '../../baseurl-axios'
 import Loading from '../loading/loading.component'
+import { useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/redux.hooks'
+import cartReducer from '../../store/reducers/cart/cart.reducer'
+import { selectProductsTotalPrice } from '../../store/reducers/cart/cart.selectors'
 const Checkout: FunctionComponent = () => {
-  const { products, productsTotalPrice } = useContext(CartContext)
+  const productsTotalPrice = useAppSelector(selectProductsTotalPrice)
+  const { products } = useAppSelector((rootReducer) => rootReducer.cartReducer)
   const [isLoading, setLoading] = useState(false)
   const handleFinishPurchaseClick = async () => {
     try {
