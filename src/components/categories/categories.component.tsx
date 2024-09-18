@@ -10,11 +10,14 @@ import CategoryItem from '../category-item/category-item'
 import { CategoriesContainer, CategoriesContent } from './categories.styles'
 import { categoryContext } from '../../contexts/catergory.context'
 import Loading from '../loading/loading.component'
+import { useDispatch } from 'react-redux'
+import { fetchCategories } from '../../store/reducers/category/catergory.action'
 
 const Categories = () => {
-  const { categories, isLoading, fechCategories } = useContext(categoryContext)
+  const { categories, isLoading } = useContext(categoryContext)
+  const dispatch = useDispatch()
   useEffect(() => {
-    fechCategories()
+    dispatch(fetchCategories() as any)
   }, [])
   return (
     <CategoriesContainer>
