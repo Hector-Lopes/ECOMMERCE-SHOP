@@ -36,7 +36,7 @@ const Cart: FunctionComponent = () => {
   const productsTotal = useAppSelector(selectProductsCount)
   const HandleChekoutClick = () => {
     navigate('/checkout')
-    toggleCart()
+    dispatch(toggleCart())
   }
   const HandleCLickOut = () => {
     dispatch(toggleCart())
