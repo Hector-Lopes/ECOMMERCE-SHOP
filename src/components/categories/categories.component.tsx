@@ -1,20 +1,21 @@
 // styles
-import { useContext, useEffect } from 'react'
-import axios from 'axios'
-
+import { useEffect } from 'react'
 //components
 import CategoryItem from '../category-item/category-item'
 
 //utilities
 
 import { CategoriesContainer, CategoriesContent } from './categories.styles'
-import { categoryContext } from '../../contexts/catergory.context'
+
 import Loading from '../loading/loading.component'
 import { useDispatch } from 'react-redux'
 import { fetchCategories } from '../../store/reducers/category/catergory.action'
+import { useAppSelector } from '../../hooks/redux.hooks'
 
 const Categories = () => {
-  const { categories, isLoading } = useContext(categoryContext)
+  const { categories, isLoading } = useAppSelector(
+    (rootReducer) => rootReducer.categoryReducer
+  )
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchCategories() as any)
