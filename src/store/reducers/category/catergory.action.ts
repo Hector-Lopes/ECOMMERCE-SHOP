@@ -15,11 +15,11 @@ export const fetchCategories = () => {
       )
       querySnapshot.forEach((doc) => {
         categoriesFromFirestore.push(doc.data())
+      })
 
-        dispatch({
-          type: CategoryActionType.CATEGORIES_SUCCESS,
-          payload: categoriesFromFirestore
-        })
+      dispatch({
+        type: CategoryActionType.CATEGORIES_SUCCESS,
+        payload: categoriesFromFirestore
       })
     } catch (e) {
       console.log(e)
