@@ -12,10 +12,10 @@ import CartProduct from '../../types/cart.types'
 import { CartContext } from '../../contexts/cart.context'
 import { useDispatch } from 'react-redux'
 import {
-  removeProduct,
+  RemoveProducToCart,
   DecreaseProductQuantity,
   IncreaseProductQuantity
-} from '../../store/reducers/cart/cart.action'
+} from '../../store/toolkit/cart/cart.slice'
 
 interface CartItemProps {
   product: CartProduct
@@ -24,7 +24,7 @@ const CartItem: FunctionComponent<CartItemProps> = ({ product }) => {
   const dispatch = useDispatch()
 
   const HandleDeleteProduct = () => {
-    dispatch(removeProduct(product))
+    dispatch(RemoveProducToCart(product))
   }
 
   const HandleToIncreaseQuantity = () => {

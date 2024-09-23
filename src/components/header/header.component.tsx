@@ -12,7 +12,7 @@ import { auth } from '../../config/firebase.config'
 import { useDispatch } from 'react-redux'
 import { logoutUser } from '../../store/toolkit/user/user.slice'
 import { useAppSelector } from '../../hooks/redux.hooks'
-import { toggleCart } from '../../store/reducers/cart/cart.action'
+import { ToggleCart } from '../../store/toolkit/cart/cart.slice'
 import { selectProductsCount } from '../../store/reducers/cart/cart.selectors'
 
 const Header = () => {
@@ -45,7 +45,7 @@ const Header = () => {
   }
 
   const handleCartClick = () => {
-    dispatch(toggleCart())
+    dispatch(ToggleCart())
   }
 
   return (
