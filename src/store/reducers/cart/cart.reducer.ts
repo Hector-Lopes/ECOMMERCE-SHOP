@@ -60,7 +60,7 @@ const cartReducer = (state = InitialState, action: any): InitialState => {
       return {
         ...state,
         products: state.products.map((item) =>
-          item.id == action.payload.id && action.payload.quantity > 1
+          item.id == action.payload.id && item.quantity > 1
             ? { ...item, quantity: item.quantity - 1 }
             : item
         )
