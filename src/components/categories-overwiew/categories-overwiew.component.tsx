@@ -5,7 +5,7 @@ import CategoryOverview from '../category-overview/category-overview.component'
 import { useAppSelector } from '../../hooks/redux.hooks'
 import rootReducer from '../../store/root.reducer'
 import { useDispatch } from 'react-redux'
-import { fetchCategories } from '../../store/reducers/category/catergory.action'
+import { fetchCategories } from '../../store/toolkit/category/category.slice'
 
 const CategoriesOverview = () => {
   const dispacth = useDispatch()

@@ -9,7 +9,7 @@ import { CategoriesContainer, CategoriesContent } from './categories.styles'
 
 import Loading from '../loading/loading.component'
 import { useDispatch } from 'react-redux'
-import { fetchCategories } from '../../store/reducers/category/catergory.action'
+import { fetchCategories } from '../../store/toolkit/category/category.slice'
 import { useAppSelector } from '../../hooks/redux.hooks'
 
 const Categories = () => {
