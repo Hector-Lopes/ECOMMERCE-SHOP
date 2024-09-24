@@ -9,9 +9,12 @@ export const LoginContainer = styled.div`
 
   > .teste {
     display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 450px;
+    flex-direction: column;
+    align-items: center;
+    width: 450px;
+    @media (max-width: 768px) {
+      width: 90%;
+    }
   }
 `
 
@@ -23,7 +26,7 @@ export const LoginHeadline = styled.p`
 `
 
 // export const LoginContent = styled.div`
- 
+
 // `
 
 export const LoginSubtitle = styled.p`
