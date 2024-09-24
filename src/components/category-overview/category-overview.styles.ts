@@ -18,4 +18,7 @@ export const ProductsContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
 `
