@@ -43,4 +43,9 @@ export const CategoryName = styled.div`
   & p:nth-child(1) {
     font-weight: 600;
   }
+
+  @media (max-width: 768px) {
+    width: 10%;
+    margin: 20px;
+  }
 `
