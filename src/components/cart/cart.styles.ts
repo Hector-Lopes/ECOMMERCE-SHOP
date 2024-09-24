@@ -36,6 +36,9 @@ export const CartContent = styled.div`
   background-color: white;
   padding: 20px;
   overflow-y: scroll;
+  @media (max-width: 768px) {
+    min-width: 80%;
+  }
 `
 export const CartTitle = styled.p`
   font-size: 1.325rem;
