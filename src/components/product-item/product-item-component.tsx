@@ -11,7 +11,7 @@ import { CartContext } from '../../contexts/cart.context'
 import { useAppSelector } from '../../hooks/redux.hooks'
 import cartReducer from '../../store/reducers/cart/cart.reducer'
 import { useDispatch } from 'react-redux'
-import { addProduct } from '../../store/reducers/cart/cart.action'
+import { AddProducToCart } from '../../store/toolkit/cart/cart.slice'
 import CartProduct from '../../types/cart.types'
 
 interface ProductItemProps {
@@ -21,7 +21,7 @@ interface ProductItemProps {
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const dispacth = useDispatch()
   const HandleAddToCart = () => {
-    dispacth(addProduct(product as CartProduct))
+    dispacth(AddProducToCart(product as CartProduct))
   }
   return (
     <ProductContainer>
