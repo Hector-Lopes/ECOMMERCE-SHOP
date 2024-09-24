@@ -50,7 +50,7 @@ const Checkout: FunctionComponent = () => {
                 <CartItem key={product.id} product={product}></CartItem>
               ))}
             </CheckoutProducts>
-            <CheckoutTotal>Tota: R${productsTotalPrice}</CheckoutTotal>
+            <CheckoutTotal>Total: R${productsTotalPrice}</CheckoutTotal>
             <CustomButton
               onClick={handleFinishPurchaseClick}
               startIcon={<BsBagCheck></BsBagCheck>}
