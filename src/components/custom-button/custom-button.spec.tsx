@@ -5,6 +5,6 @@ describe('Custom Button', () => {
   it('should test if render children', () => {
     const { getByText } = render(<CustomButton>Click Me</CustomButton>)
 
-    getByText('Click M')
+    getByText('Click Me')
   })
 })
